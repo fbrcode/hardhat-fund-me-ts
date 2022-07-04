@@ -37,3 +37,7 @@ Options:
   solidity-coverage
 )? (Y/n) · y
 ```
+
+### About solhint
+
+Solidity Linter <https://www.npmjs.com/package/solhint> - analyses the code and look for errors.
