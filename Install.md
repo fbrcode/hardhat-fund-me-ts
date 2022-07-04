@@ -41,3 +41,9 @@ Options:
 ### About solhint
 
 Solidity Linter <https://www.npmjs.com/package/solhint> - analyses the code and look for errors.
+
+## Install chainlink contracts
+
+In order to compile the fund me contract, we need the chainlink contracts. Import them with:
+
+`yarn add --dev @chainlink/contracts`
