@@ -47,3 +47,13 @@ Solidity Linter <https://www.npmjs.com/package/solhint> - analyses the code and 
 In order to compile the fund me contract, we need the chainlink contracts. Import them with:
 
 `yarn add --dev @chainlink/contracts`
+
+## Using hardhat-deploy
+
+This package make this a lot easier to handle deployments: <https://github.com/wighawag/hardhat-deploy>
+
+`yarn add --dev hardhat-deploy`
+
+Remap ethers to work with **hardhat-deploy**:
+
+`yarn add --dev @nomiclabs/hardhat-ethers@npm:hardhat-deploy-ethers ethers`
