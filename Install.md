@@ -57,3 +57,16 @@ This package make this a lot easier to handle deployments: <https://github.com/w
 Remap ethers to work with **hardhat-deploy**:
 
 `yarn add --dev @nomiclabs/hardhat-ethers@npm:hardhat-deploy-ethers ethers`
+
+## Coding styling
+
+Some basic rules con code styling, ordering and documentation.
+
+- <https://docs.soliditylang.org/en/v0.8.13/style-guide.html#order-of-layout>
+- <https://docs.soliditylang.org/en/v0.8.11/natspec-format.html#natspec>
+
+## Testing
+
+**`tests/unit`** : Unit tests are done locally.
+
+**`tests/staging`** : Staging tests are done on a testnet (LAST STOP!).
