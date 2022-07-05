@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
-// 1: Pragma statements
 pragma solidity ^0.8.8;
+// 1: Pragma statements
 
 // Style Guide: https://docs.soliditylang.org/en/v0.8.13/style-guide.html#order-of-layout
 // General style: 1: Pragma statements || 2: Import statements || 3: Interfaces || 4: Libraries || 5: Errors || 6: Contracts
@@ -33,12 +33,12 @@ contract FundMe {
   using PriceConverter for uint256;
 
   // 6.b: State variables
-  mapping(address => uint256) public addressToAmountFunded;
-  address[] public funders;
+  mapping(address => uint256) public s_addressToAmountFunded;
+  address[] public s_funders;
   address public immutable i_owner; // Could we make this constant?  /* hint: no! We should make it immutable! */
   uint256 public constant MINIMUM_USD = 50 * 10**18; // contsants cost less gas than variables
 
-  AggregatorV3Interface public immutable priceFeed;
+  AggregatorV3Interface public immutable s_priceFeed;
 
   // 6.c: Events (none in this case)
 
@@ -53,7 +53,7 @@ contract FundMe {
   // 6.e.1: constructor
   constructor(address priceFeedAddress) {
     i_owner = msg.sender;
-    priceFeed = AggregatorV3Interface(priceFeedAddress);
+    s_priceFeed = AggregatorV3Interface(priceFeedAddress);
   }
 
   // Explainer from: https://solidity-by-example.org/fallback/
@@ -87,24 +87,28 @@ contract FundMe {
    */
   function fund() public payable {
     require(
-      msg.value.getConversionRate(priceFeed) >= MINIMUM_USD,
+      msg.value.getConversionRate(s_priceFeed) >= MINIMUM_USD,
       "You need to spend more ETH!"
     );
     // require(PriceConverter.getConversionRate(msg.value) >= MINIMUM_USD, "You need to spend more ETH!");
-    addressToAmountFunded[msg.sender] += msg.value;
-    funders.push(msg.sender);
+    s_addressToAmountFunded[msg.sender] += msg.value;
+    s_funders.push(msg.sender);
   }
 
   function getVersion() public view returns (uint256) {
-    return priceFeed.version();
+    return s_priceFeed.version();
   }
 
   function withdraw() public payable onlyOwner {
-    for (uint256 funderIndex = 0; funderIndex < funders.length; funderIndex++) {
-      address funder = funders[funderIndex];
-      addressToAmountFunded[funder] = 0;
+    for (
+      uint256 funderIndex = 0;
+      funderIndex < s_funders.length;
+      funderIndex++
+    ) {
+      address funder = s_funders[funderIndex];
+      s_addressToAmountFunded[funder] = 0;
     }
-    funders = new address[](0);
+    s_funders = new address[](0);
     // // transfer
     // payable(msg.sender).transfer(address(this).balance);
     // // send
