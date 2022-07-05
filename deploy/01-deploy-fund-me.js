@@ -9,6 +9,7 @@ const {
   networkConfig,
   developmentChains,
 } = require("../helper-hardhat-config");
+const { verify } = require("../utils/verify");
 
 // mode #1 - deploy the contract with anonymous function
 // module.exports = async (hre) => { const { getNamedAccounts, deployments } = hre; };
@@ -31,11 +32,23 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     ethUsdPriceFeed = networkConfig[chainId].ethUsdPriceFeed;
   }
 
+  // deploy FundMe contract
+  const args = [ethUsdPriceFeed];
   const fundMe = await deploy("FundMe", {
     from: deployer,
-    args: [ethUsdPriceFeed], // price feed address
+    args: args, // price feed address
     log: true,
+    waitConfirmations: network.config.blockConfirmations || 1,
   });
+
+  // if not in local and has etherscan api key, verify the deployment
+  if (
+    !developmentChains.includes(network.name) &&
+    process.env.ETHERSCAN_API_KEY
+  ) {
+    await verify(fundMe.address, args);
+  }
+
   log("----------------------------------");
 };
 
