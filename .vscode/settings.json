@@ -1,3 +1,11 @@
 {
-  "cSpell.words": ["chainlink", "fbrcode", "fundme", "nomiclabs", "solhint"]
+  "cSpell.words": [
+    "chainlink",
+    "fbrcode",
+    "funder",
+    "funders",
+    "fundme",
+    "nomiclabs",
+    "solhint"
+  ]
 }
