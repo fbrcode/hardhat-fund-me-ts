@@ -33,12 +33,12 @@ contract FundMe {
   using PriceConverter for uint256;
 
   // 6.b: State variables
-  mapping(address => uint256) public s_addressToAmountFunded;
-  address[] public s_funders;
-  address public immutable i_owner; // Could we make this constant?  /* hint: no! We should make it immutable! */
+  mapping(address => uint256) private s_addressToAmountFunded;
+  address[] private s_funders;
+  address private immutable i_owner; // Could we make this constant?  /* hint: no! We should make it immutable! */
   uint256 public constant MINIMUM_USD = 50 * 10**18; // contsants cost less gas than variables
 
-  AggregatorV3Interface public immutable s_priceFeed;
+  AggregatorV3Interface private immutable s_priceFeed;
 
   // 6.c: Events (none in this case)
 
@@ -139,6 +139,25 @@ contract FundMe {
   // 6.e.7: private (none in this case)
 
   // 6.e.8: view / pure (none in this case)
+  function getOwner() public view returns (address) {
+    return i_owner;
+  }
+
+  function getFunder(uint256 index) public view returns (address) {
+    return s_funders[index];
+  }
+
+  function getAddressToAmountFunded(address funder)
+    public
+    view
+    returns (uint256)
+  {
+    return s_addressToAmountFunded[funder];
+  }
+
+  function getPriceFeed() public view returns (AggregatorV3Interface) {
+    return s_priceFeed;
+  }
 }
 
 // Concepts we didn't cover yet (will cover in later sections)
