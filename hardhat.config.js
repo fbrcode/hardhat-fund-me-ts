@@ -36,6 +36,7 @@ module.exports = {
     noColors: true,
     currency: "USD",
     coinmarketcap: COINMARKETCAP_API_KEY,
+    token: "ETH", // how much it costs to deploy/run on ethereum
     // token: "MATIC", // how much it costs to deploy/run on polygon
   },
   etherscan: {

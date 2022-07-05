@@ -121,6 +121,19 @@ contract FundMe {
     require(callSuccess, "Call failed");
   }
 
+  function cheaperWithdraw() public payable onlyOwner {
+    // read into memory once and the work with it instead
+    address[] memory funders = s_funders;
+    // note: mappings cannot be in memory right now
+    for (uint256 funderIndex = 0; funderIndex < funders.length; funderIndex++) {
+      address funder = funders[funderIndex];
+      s_addressToAmountFunded[funder] = 0;
+    }
+    s_funders = new address[](0);
+    (bool callSuccess, ) = i_owner.call{value: address(this).balance}("");
+    require(callSuccess, "Call failed");
+  }
+
   // 6.e.6: internal (none in this case)
 
   // 6.e.7: private (none in this case)
