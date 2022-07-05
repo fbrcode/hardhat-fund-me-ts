@@ -1,32 +1,90 @@
 // SPDX-License-Identifier: MIT
+// 1: Pragma statements
 pragma solidity ^0.8.8;
+
+// Style Guide: https://docs.soliditylang.org/en/v0.8.13/style-guide.html#order-of-layout
+// General style: 1: Pragma statements || 2: Import statements || 3: Interfaces || 4: Libraries || 5: Errors || 6: Contracts
+// Inside contract: 6.a: Type declarations || 6.b: State variables || 6.c: Events || 6.d: Modifiers || 6.e: Functions
+// Function grouping: 6.e.1: constructor || 6.e.2: receive || 6.e.3: fallback || 6.e.4: external || 6.e.5: public || 6.e.6: internal || 6.e.7: private || 6.e.8: view / pure
 
 // hibrid smart contract combines on-chain and off-chain functionality
 
+// 2: Import statements
 import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 import "./PriceConverter.sol";
 
-error NotOwner();
+// 3: Interfaces (none in this case)
 
+// 4: Libraries (none in this case)
+
+// 5: Errors
+error FundMe__NotOwner();
+
+// 6: Contracts
+
+// Code documentation: https://docs.soliditylang.org/en/v0.8.11/natspec-format.html#natspec
+/** @title A contract for crowd funding
+ *  @author Fabio Bressler
+ *  @notice This contract is to demo a sample funding contract
+ *  @dev This implements price feeds as our library
+ */
 contract FundMe {
+  // 6.a: Type declarations
   using PriceConverter for uint256;
 
+  // 6.b: State variables
   mapping(address => uint256) public addressToAmountFunded;
   address[] public funders;
-
-  // Could we make this constant?  /* hint: no! We should make it immutable! */
-  address public immutable i_owner;
-
-  // contsants cost less gas than variables
-  uint256 public constant MINIMUM_USD = 50 * 10**18;
+  address public immutable i_owner; // Could we make this constant?  /* hint: no! We should make it immutable! */
+  uint256 public constant MINIMUM_USD = 50 * 10**18; // contsants cost less gas than variables
 
   AggregatorV3Interface public immutable priceFeed;
 
+  // 6.c: Events (none in this case)
+
+  // 6.d: Modifiers
+  modifier onlyOwner() {
+    // require(msg.sender == owner);
+    if (msg.sender != i_owner) revert FundMe__NotOwner();
+    _;
+  }
+
+  // 6.e: Functions
+  // 6.e.1: constructor
   constructor(address priceFeedAddress) {
     i_owner = msg.sender;
     priceFeed = AggregatorV3Interface(priceFeedAddress);
   }
 
+  // Explainer from: https://solidity-by-example.org/fallback/
+  // Ether is sent to contract
+  //      is msg.data empty?
+  //          /   \
+  //         yes  no
+  //         /     \
+  //    receive()?  fallback()
+  //     /   \
+  //   yes   no
+  //  /        \
+  //receive()  fallback()
+
+  // 6.e.2: receive
+  receive() external payable {
+    fund();
+  }
+
+  // 6.e.3: fallback
+  fallback() external payable {
+    fund();
+  }
+
+  // 6.e.4: external (none in this case)
+
+  // 6.e.5: public
+
+  /** @notice This function funds this contract
+   *  @dev Used price feed settings to ETH -> USD conversion and minimum USD amount check
+   */
   function fund() public payable {
     require(
       msg.value.getConversionRate(priceFeed) >= MINIMUM_USD,
@@ -39,12 +97,6 @@ contract FundMe {
 
   function getVersion() public view returns (uint256) {
     return priceFeed.version();
-  }
-
-  modifier onlyOwner() {
-    // require(msg.sender == owner);
-    if (msg.sender != i_owner) revert NotOwner();
-    _;
   }
 
   function withdraw() public payable onlyOwner {
@@ -65,25 +117,11 @@ contract FundMe {
     require(callSuccess, "Call failed");
   }
 
-  // Explainer from: https://solidity-by-example.org/fallback/
-  // Ether is sent to contract
-  //      is msg.data empty?
-  //          /   \
-  //         yes  no
-  //         /     \
-  //    receive()?  fallback()
-  //     /   \
-  //   yes   no
-  //  /        \
-  //receive()  fallback()
+  // 6.e.6: internal (none in this case)
 
-  fallback() external payable {
-    fund();
-  }
+  // 6.e.7: private (none in this case)
 
-  receive() external payable {
-    fund();
-  }
+  // 6.e.8: view / pure (none in this case)
 }
 
 // Concepts we didn't cover yet (will cover in later sections)
