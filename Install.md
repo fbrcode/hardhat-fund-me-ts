@@ -70,3 +70,11 @@ Some basic rules con code styling, ordering and documentation.
 **`tests/unit`** : Unit tests are done locally.
 
 **`tests/staging`** : Staging tests are done on a testnet (LAST STOP!).
+
+## GAS Optimization
+
+Tutorial: <https://youtu.be/gyMwXuJrbJQ?t=42758>
+
+Storage <https://docs.soliditylang.org/en/v0.8.11/internals/layout_in_storage.html>
+
+EVM Opcodes: <https://github.com/crytic/evm-opcodes>
