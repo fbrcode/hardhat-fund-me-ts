@@ -1,26 +1,36 @@
 // test for the testnet stage, assuming that the contracts got deployed there already
-const { getNamedAccounts, ethers, network } = require("hardhat");
-const { developmentChains } = require("../../helper-hardhat-config");
-const { assert } = require("chai");
+import { assert } from "chai";
+import { ethers, network } from "hardhat";
+import { developmentChainId } from "../../helper-hardhat-config";
+import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
+import { FundMe } from "../../typechain-types";
 
 // if is a local chain, skip these tests
-developmentChains.includes(network.name)
+developmentChainId === network.config.chainId
   ? describe.skip
-  : describe("FundMe", async function () {
-      let fundMe;
-      let deployer;
-      const send1ETH = ethers.utils.parseEther("1"); // 1 ETH
+  : describe("FundMe Staging Tests", async function () {
+      let fundMe: FundMe;
+      let deployer: SignerWithAddress;
+
+      const sendValue = ethers.utils.parseEther("0.1");
       beforeEach(async function () {
-        deployer = (await getNamedAccounts()).deployer;
-        fundMe = await ethers.getContract("FundMe", deployer);
+        const accounts = await ethers.getSigners();
+        deployer = accounts[0];
+        fundMe = await ethers.getContract("FundMe", deployer.address);
       });
 
-      it("allows people to fund and withdraw", async function () {
-        await fundMe.fund({ value: send1ETH });
-        await fundMe.withdraw();
-        const endingFundMeBallance = await fundMe.provider.getBalance(
+      it("Allows people to fund and withdraw", async function () {
+        await fundMe.fund({ value: sendValue });
+        await fundMe.withdraw({
+          gasLimit: 100000,
+        });
+        const endingFundMeBalance = await fundMe.provider.getBalance(
           fundMe.address
         );
-        assert.equal(endingFundMeBallance.toString(), "0");
+        console.log(
+          endingFundMeBalance.toString() +
+            " should equal 0, running assert equal..."
+        );
+        assert.equal(endingFundMeBalance.toString(), "0");
       });
     });
