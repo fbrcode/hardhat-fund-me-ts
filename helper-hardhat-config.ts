@@ -1,11 +1,11 @@
 // config addresses (chainlink price feed) for already deployed contracts in each chain
 export interface networkConfigItem {
-  ethUsdPriceFeed?: string,
-  blockConfirmations?: number,
+  ethUsdPriceFeed?: string;
+  blockConfirmations?: number;
 }
 
 export interface networkConfigInfo {
-  [key: string]: networkConfigItem
+  [key: string]: networkConfigItem;
 }
 
 export const networkConfig: networkConfigInfo = {
@@ -18,11 +18,11 @@ export const networkConfig: networkConfigInfo = {
   polygon: {
     ethUsdPriceFeed: "0xF9680D99D6C9589e2a93a78A04A279e509205945",
     blockConfirmations: 6,
-  }
+  },
 };
 
 // define which chains are for local development
-export const developmentChains = ["hardhat", "localhost"];
+export const developmentChainId = 31337;
 
 // define price feed mock initial values (for local development)
 export const MOCK_DECIMALS = 8;
