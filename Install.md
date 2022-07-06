@@ -78,3 +78,9 @@ Tutorial: <https://youtu.be/gyMwXuJrbJQ?t=42758>
 Storage <https://docs.soliditylang.org/en/v0.8.11/internals/layout_in_storage.html>
 
 EVM Opcodes: <https://github.com/crytic/evm-opcodes>
+
+## Typescript your JS code
+
+Installing typescript packages:
+
+yarn add --dev @typechain/ethers-v5 @typechain/hardhat @types/chai @types/node @types/mocha ts-node typechain typescript
