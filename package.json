@@ -12,6 +12,7 @@
     "deploy:mocks": "hardhat deploy --tags mocks",
     "deploy:rinkeby": "hardhat deploy --network rinkeby",
     "lint": "solhint contracts/*.sol",
+    "lint:fix": "solhint contracts/*.sol --fix",
     "test:unit": "hardhat test",
     "test:staging": "hardhat test --network rinkeby",
     "script:local:fund": "hardhat run scripts/fund.js --network localhost",
