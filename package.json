@@ -7,13 +7,14 @@
   "scripts": {
     "build": "hardhat compile",
     "clean": "hardhat clean",
-    "run-node": "hardhat node",
+    "node:local": "hardhat node",
     "deploy": "hardhat deploy",
     "deploy:mocks": "hardhat deploy --tags mocks",
     "deploy:rinkeby": "hardhat deploy --network rinkeby",
     "lint": "solhint contracts/*.sol",
     "test:unit": "hardhat test",
-    "test:staging": "hardhat test --network rinkeby"
+    "test:staging": "hardhat test --network rinkeby",
+    "script:local:fund": "hardhat run scripts/fund.js --network localhost"
   },
   "devDependencies": {
     "@chainlink/contracts": "^0.4.1",
