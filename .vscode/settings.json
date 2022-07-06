@@ -6,6 +6,7 @@
     "funders",
     "fundme",
     "nomiclabs",
-    "solhint"
+    "solhint",
+    "typechain"
   ]
 }
