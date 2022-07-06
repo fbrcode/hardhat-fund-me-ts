@@ -17,8 +17,8 @@
     "test:unit": "hardhat test",
     "test:staging": "hardhat test --network rinkeby",
     "coverage": "hardhat coverage",
-    "script:local:fund": "hardhat run scripts/fund.js --network localhost",
-    "script:local:withdraw": "hardhat run scripts/withdraw.js --network localhost"
+    "script:local:fund": "hardhat run scripts/fund.ts --network localhost",
+    "script:local:withdraw": "hardhat run scripts/withdraw.ts --network localhost"
   },
   "devDependencies": {
     "@chainlink/contracts": "^0.4.1",
