@@ -5,6 +5,7 @@ coverage.json
 typechain
 deployments
 *.log
+typechain-types
 
 #Hardhat files
 cache
