@@ -1,15 +1,13 @@
-// script to interact with the code: fund
+// script to interact with the code: withdraw
 const { getNamedAccounts, ethers } = require("hardhat");
 
 async function main() {
   const { deployer } = await getNamedAccounts();
   const fundMe = await ethers.getContract("FundMe", deployer);
-  console.log("Funding contract...");
-  const transactionResponse = await fundMe.fund({
-    value: ethers.utils.parseEther("0.1"),
-  });
+  console.log("Withdraw from contract...");
+  const transactionResponse = await fundMe.withdraw();
   await transactionResponse.wait(1);
-  console.log("Funded!");
+  console.log("Withdrawn!");
 }
 
 main()

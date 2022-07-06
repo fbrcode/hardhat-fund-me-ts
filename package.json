@@ -14,7 +14,8 @@
     "lint": "solhint contracts/*.sol",
     "test:unit": "hardhat test",
     "test:staging": "hardhat test --network rinkeby",
-    "script:local:fund": "hardhat run scripts/fund.js --network localhost"
+    "script:local:fund": "hardhat run scripts/fund.js --network localhost",
+    "script:local:withdraw": "hardhat run scripts/withdraw.js --network localhost"
   },
   "devDependencies": {
     "@chainlink/contracts": "^0.4.1",
