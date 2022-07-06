@@ -13,6 +13,7 @@
     "deploy:rinkeby": "hardhat deploy --network rinkeby",
     "lint": "solhint contracts/*.sol",
     "lint:fix": "solhint contracts/*.sol --fix",
+    "format": "prettier --write .",
     "test:unit": "hardhat test",
     "test:staging": "hardhat test --network rinkeby",
     "script:local:fund": "hardhat run scripts/fund.js --network localhost",
