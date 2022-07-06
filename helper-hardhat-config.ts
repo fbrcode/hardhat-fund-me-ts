@@ -1,26 +1,29 @@
 // config addresses (chainlink price feed) for already deployed contracts in each chain
-networkConfig = {
-  4: {
-    name: "rinkeby",
+export interface networkConfigItem {
+  ethUsdPriceFeed?: string,
+  blockConfirmations?: number,
+}
+
+export interface networkConfigInfo {
+  [key: string]: networkConfigItem
+}
+
+export const networkConfig: networkConfigInfo = {
+  localhost: {},
+  hardhat: {},
+  rinkeby: {
     ethUsdPriceFeed: "0x8A753747A1Fa494EC906cE90E9f37563A8AF630e",
+    blockConfirmations: 6,
   },
-  137: {
-    name: "polygon",
+  polygon: {
     ethUsdPriceFeed: "0xF9680D99D6C9589e2a93a78A04A279e509205945",
-  },
-  // 31337
+    blockConfirmations: 6,
+  }
 };
 
 // define which chains are for local development
-const developmentChains = ["hardhat", "localhost"];
+export const developmentChains = ["hardhat", "localhost"];
 
 // define price feed mock initial values (for local development)
-const MOCK_DECIMALS = 8;
-const MOCK_INITIAL_ANSWER = 200000000000; // 2k + 8 decimals
-
-module.exports = {
-  networkConfig,
-  developmentChains,
-  MOCK_DECIMALS,
-  MOCK_INITIAL_ANSWER,
-};
+export const MOCK_DECIMALS = 8;
+export const MOCK_INITIAL_ANSWER = 200000000000; // 2k + 8 decimals
