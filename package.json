@@ -12,7 +12,8 @@
     "deploy:mocks": "hardhat deploy --tags mocks",
     "deploy:rinkeby": "hardhat deploy --network rinkeby",
     "lint": "solhint contracts/*.sol",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test:unit": "hardhat test",
+    "test:staging": "hardhat test --network rinkeby"
   },
   "devDependencies": {
     "@chainlink/contracts": "^0.4.1",
