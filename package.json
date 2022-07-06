@@ -16,6 +16,7 @@
     "format": "prettier --write .",
     "test:unit": "hardhat test",
     "test:staging": "hardhat test --network rinkeby",
+    "coverage": "hardhat coverage",
     "script:local:fund": "hardhat run scripts/fund.js --network localhost",
     "script:local:withdraw": "hardhat run scripts/withdraw.js --network localhost"
   },
